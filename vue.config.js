@@ -35,11 +35,10 @@ module.exports = {
       .set('_c', resolve('src/components'))
   },
   // 设为false打包时不生成.map文件
-  productionSourceMap: false
+  productionSourceMap: false,
   // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
-  //devServer: {
-    // proxy:'http://127.0.0.1:6868/ems-manage-web/',
-    /*proxy: {
+  devServer: {
+    proxy: {
       '/api': {
         target: 'http://127.0.0.1:3838',
         ws: true,
@@ -48,7 +47,16 @@ module.exports = {
         pathRewrite: {
           '^/api/': '/sdwan/api/'
         }
+      },
+      '/socket.io': {
+        target: 'http://127.0.0.1:3838',
+        ws: true,
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/socket.io/': '/ems-manage-web/socket.io/'
+        }
       }
-    }*/
-  //}
+    }
+  }
 }
