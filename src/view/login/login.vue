@@ -5,6 +5,7 @@
 <template>
   <div class="login">
     <div class="login-con">
+      <div class="loginLogo"></div>
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
           <login-form :notice="notice" :loading="loading" @on-success-valid="handleSubmit"></login-form>
