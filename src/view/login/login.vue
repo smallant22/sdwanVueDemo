@@ -8,7 +8,7 @@
       <div class="loginLogo"></div>
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
-          <login-form :notice="notice" :loading="loading" @on-success-valid="handleSubmit"></login-form>
+          <login-form :loading="loading"  @on-success-valid="handleSubmit"></login-form>
         </div>
       </Card>
     </div>
@@ -18,11 +18,10 @@
 <script>
 import LoginForm from '_c/login-form'
 import { mapActions } from 'vuex'
-import md5 from 'md5';
+import md5 from 'md5'
 export default {
   data () {
     return {
-      notice: '',
       loading: false
     }
   },
@@ -31,19 +30,22 @@ export default {
   },
   methods: {
     ...mapActions([
-      'handleLogin',
-      'getUserInfo'
-    ]),
+      'handleLogin'
+    ]),//,'getUserInfo'
     handleSubmit ({ username, password }) {
+      this.loading = true;
+      password = md5(password);
       this.handleLogin({ username, password }).then(res => {
-        debugger
         if (res.data.result =='ok'){
+          console.log(this.$config)
           this.$router.push({
-            name: this.$config.homeName
+            path: '/'//this.$config.homeName
           })
         }else{
-          this.notice = res.data.message
-          this.loading=false
+          this.$Notice.error({
+            title: res.data.message
+          })
+          this.loading = false;
         }
       })
     }

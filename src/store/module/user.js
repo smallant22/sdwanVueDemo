@@ -13,6 +13,16 @@ import { setToken, getToken } from '@/libs/util'
 
 export default {
   state: {
+    sms_userId: '',
+    sms_orgId: '',
+    sms_builtin: '',
+    sms_sceneType: '',
+    sms_access_token: getToken(),
+    sms_need_modify_pwd: '',
+    sms_language: '',
+    sms_is_org_admin: '',
+    sms_is_domain_admin: '',
+    sms_is_orgGroup_admin: '',
     userName: '',
     userId: '',
     avatorImgPath: '',
@@ -26,6 +36,33 @@ export default {
     messageContentStore: {}
   },
   mutations: {
+    sms_userId (state, userId) {
+      state.sms_userId = userId
+    },
+    sms_builtin (state, builtin) {
+      state.sms_builtin = builtin
+    },
+    sms_sceneType (state, sceneType) {
+      state.sms_sceneType = sceneType
+    },
+    sms_orgId (state, orgId) {
+      state.sms_orgId = orgId
+    },
+    sms_need_modify_pwd (state, pwd) {
+      state.sms_need_modify_pwd = pwd
+    },
+    sms_language (state, language) {
+      state.sms_language = language
+    },
+    sms_is_org_admin (state, orgAdmin) {
+      state.sms_is_org_admin = orgAdmin
+    },
+    sms_is_domain_admin (state, domainAdmin) {
+      state.sms_is_domain_admin = domainAdmin
+    },
+    sms_is_orgGroup_admin (state, groupAdmin) {
+      state.sms_is_orgGroup_admin = groupAdmin
+    },
     setAvator (state, avatorPath) {
       state.avatorImgPath = avatorPath
     },
@@ -84,7 +121,17 @@ export default {
           const data = res.data;
           if (data.result == 'ok'){
             const data = res.data
-            commit('setToken', data.token)
+            commit('sms_userId', data.userId);
+            commit('sms_orgId', data.orgId);
+            commit('setHasGetInfo', true);
+            commit('sms_builtin', data.builtin);
+            commit('sms_sceneType', data.sceneType);
+            commit('setToken', data.access_token);
+            commit('sms_need_modify_pwd', data.need_modify_pwd);
+            commit('sms_language', data.language);
+            commit('sms_is_org_admin', data.is_org_admin);
+            commit('sms_is_domain_admin', data.is_domain_admin);
+            commit('sms_is_orgGroup_admin',data.is_org_group_admin);
           }
           resolve(res)
         }).catch(err => {
@@ -108,7 +155,6 @@ export default {
         // resolve()
       })
     },
-    // 获取用户相关信息
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         try {

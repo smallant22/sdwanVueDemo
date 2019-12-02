@@ -7,7 +7,7 @@
         </span>
       </Input>
     </FormItem>
-    <FormItem prop="password">
+    <FormItem prop="password" >
       <Input type="password" v-model="form.password" placeholder="请输入密码">
         <span slot="prepend">
           <Icon :size="14" type="md-lock"></Icon>
@@ -15,7 +15,7 @@
       </Input>
     </FormItem>
     <FormItem>
-      <Button @click="handleSubmit" type="primary" long>登录</Button>
+      <Button @click="handleSubmit" :loading="loading" type="primary" long>登录</Button>
     </FormItem>
   </Form>
 </template>
@@ -38,7 +38,8 @@ export default {
           { required: true, message: '密码不能为空', trigger: 'blur' }
         ]
       }
-    }
+    },
+    loading: Boolean
   },
   data () {
     return {
