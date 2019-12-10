@@ -1,6 +1,5 @@
 <template>
   <div class="side-menu-wrapper">
-    <slot></slot>
     <Menu ref="menu" v-show="!collapsed" :active-name="activeName" :open-names="openedNames" :accordion="accordion" :theme="theme" width="auto" @on-select="handleSelect">
       <template v-for="item in menuList">
         <template v-if="item.children && item.children.length === 1">
@@ -48,7 +47,7 @@ export default {
     },
     theme: {
       type: String,
-      default: 'dark'
+      default: 'light'
     },
     rootIconSize: {
       type: Number,

@@ -33,7 +33,6 @@ export default [
     redirect: '/home',
     component: Main,
     meta: {
-      hideInMenu: true,
       notCache: true
     },
     children: [
@@ -41,7 +40,6 @@ export default [
         path: '/home',
         name: 'home',
         meta: {
-          hideInMenu: true,
           title: '首页',
           notCache: true,
           icon: 'md-home'
@@ -49,15 +47,6 @@ export default [
         component: () => import('@/view/single-page/home')
       }
     ]
-  },
-  {
-    path: '',
-    name: 'doc',
-    meta: {
-      title: '文档',
-      href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book'
-    }
   },
   {
     path: '/join',
