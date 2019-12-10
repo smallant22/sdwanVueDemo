@@ -1,5 +1,6 @@
 <template>
   <div class="side-menu-wrapper">
+    <sider-trigger :collapsed="collapsed" icon="md-menu" @on-change="handleCollpasedChange"></sider-trigger>
     <Menu ref="menu" v-show="!collapsed" :active-name="activeName" :open-names="openedNames" :accordion="accordion" :theme="theme" width="auto" @on-select="handleSelect">
       <template v-for="item in menuList">
         <template v-if="item.children && item.children.length === 1">
@@ -23,6 +24,7 @@
   </div>
 </template>
 <script>
+import siderTrigger from '../../components/header-bar/sider-trigger'
 import SideMenuItem from './side-menu-item.vue'
 import CollapsedMenu from './collapsed-menu.vue'
 import { getUnion } from '@/libs/tools'
@@ -32,6 +34,7 @@ export default {
   name: 'SideMenu',
   mixins: [ mixin ],
   components: {
+    siderTrigger,
     SideMenuItem,
     CollapsedMenu
   },
@@ -82,6 +85,9 @@ export default {
     updateOpenName (name) {
       if (name === this.$config.homeName) this.openedNames = []
       else this.openedNames = this.getOpenedNamesByActiveName(name)
+    },
+    handleCollpasedChange (state) {
+      this.$emit('on-coll-change', state)
     }
   },
   computed: {
